@@ -1,63 +1,107 @@
-# 🚀 Assignment: Mastering JavaScript Fundamentals
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Mastery</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .highlight { background-color: yellow; font-weight: bold; }
+    #countdown { font-size: 1.2em; margin-top: 10px; }
+  </style>
+</head>
+<body>
 
-Welcome to your next step toward JavaScript mastery! In this assignment, you'll explore essential concepts that form the backbone of interactive, dynamic web pages—functions, loops, and the Document Object Model (DOM). Ready to code like a pro? Let’s dive in.
+  <h1>JavaScript Mastery</h1>
 
----
+  <!-- Part 1: Basics -->
+  <h2>Part 1: Basics</h2>
+  <input type="text" id="userName" placeholder="Enter your name" />
+  <input type="number" id="userAge" placeholder="Enter your age" />
+  <button onclick="checkUser()">Submit</button>
+  <p id="basicOutput"></p>
 
-## 🎯 Part 1: Mastering JavaScript Basics
+  <!-- Part 2: Functions -->
+  <h2>Part 2: Functions</h2>
+  <input type="number" id="price" placeholder="Price" />
+  <input type="number" id="tax" placeholder="Tax Rate (e.g. 0.15)" />
+  <button onclick="showTotal()">Calculate Total</button>
+  <p id="totalOutput"></p>
 
-Start with the building blocks of JavaScript—variables, data types, operators, and conditionals. You’ll write a few simple programs that capture user input, make decisions using `if/else`, and output results using `console.log()` or by modifying the webpage content.
+  <!-- Part 3: Loops -->
+  <h2>Part 3: Loops</h2>
+  <button onclick="startCountdown()">Start Countdown</button>
+  <p id="countdown"></p>
 
-**Goal:** Demonstrate your understanding of how JavaScript flows, processes logic, and interacts with data.
+  <!-- Part 4: DOM Manipulation -->
+  <h2>Part 4: DOM Manipulation</h2>
+  <button onclick="toggleHighlight()">Toggle Highlight</button>
+  <p id="domText">Click the button to highlight me!</p>
 
----
+  <button onclick="addListItem()">Add List Item</button>
+  <ul id="dynamicList"></ul>
 
-## ❤️ Part 2: JavaScript Functions — The Heart of Reusability
+  <script src="script.js"></script>
+</body>
+</html>
 
-Functions are your best friends in programming. Write a few custom functions that take inputs, process them, and return or display results. You’ll also create functions for common tasks (like calculating totals, formatting strings, or toggling content).
+// Part 1: Basics — Variables, Data Types, Conditionals
+function checkUser() {
+  let name = document.getElementById("userName").value;
+  let age = parseInt(document.getElementById("userAge").value);
+  let output = "";
 
-**Goal:** Build reusable blocks of logic that make your code cleaner, smarter, and DRY (Don't Repeat Yourself).
+  if (!name || isNaN(age)) {
+    output = "Please enter valid name and age.";
+  } else if (age >= 18) {
+    output = `Welcome, ${name}. You're an adult.`;
+  } else {
+    output = `Hi ${name}, you're still a minor.`;
+  }
 
----
+  document.getElementById("basicOutput").textContent = output;
+}
 
-## 🔁 Part 3: JavaScript Loops — Embrace the Power of Repetition!
+// Part 2: Functions — Reusable Logic
+function calculateTotal(price, taxRate) {
+  return (price + price * taxRate).toFixed(2);
+}
 
-Use `for`, `while`, or `forEach` loops to solve repetitive tasks like iterating through arrays, generating dynamic content, or simulating simple countdowns or animations.
+function showTotal() {
+  let price = parseFloat(document.getElementById("price").value);
+  let tax = parseFloat(document.getElementById("tax").value);
+  if (isNaN(price) || isNaN(tax)) {
+    document.getElementById("totalOutput").textContent = "Enter valid numbers.";
+    return;
+  }
+  let total = calculateTotal(price, tax);
+  document.getElementById("totalOutput").textContent = `Total with tax: R${total}`;
+}
 
-**Goal:** Practice controlling flow with repetition and iteration—key to working with lists, animations, and form elements.
+// Part 3: Loops — Countdown Simulation
+function startCountdown() {
+  let count = 5;
+  let display = document.getElementById("countdown");
+  display.textContent = "";
 
----
+  let interval = setInterval(() => {
+    if (count > 0) {
+      display.textContent = `Countdown: ${count}`;
+      count--;
+    } else {
+      display.textContent = "Blast off!";
+      clearInterval(interval);
+    }
+  }, 1000);
+}
 
-## 🌐 Part 4: Mastering the DOM with JavaScript
+// Part 4: DOM Manipulation — Events & Dynamic Content
+function toggleHighlight() {
+  document.getElementById("domText").classList.toggle("highlight");
+}
 
-It’s time to bring your page to life! Use JavaScript to select elements, respond to user actions, and dynamically update the content of your web page. Tasks may include changing text, toggling classes, listening to click events, or creating elements on the fly.
-
-**Goal:** Show your skill in making a static HTML page interactive using pure JavaScript and DOM manipulation.
-
----
-
-## Deliverables
-
-* A single project folder containing:
-
-  * `index.html` — your structured HTML content
-  * `style.css` — (optional) if you'd like to style your content
-  * `script.js` — your JavaScript file including:
-
-    * Variable declarations and conditionals (Part 1)
-    * At least 2 custom functions (Part 2)
-    * At least 2 loop examples (Part 3)
-    * At least 3 DOM interactions (Part 4)
-
-Each part of the assignment should be clearly commented and organized.
-
----
-
-## Outcome
-
-* Clear understanding of variables, conditionals, functions, loops, and DOM methods
-* Code readability and comments explaining your logic
-* Effective use of functions and loops to reduce repetition
-* DOM manipulation that improves interactivity
-* Clean structure and consistent indentation
-
+function addListItem() {
+  let list = document.getElementById("dynamicList");
+  let item = document.createElement("li");
+  item.textContent = "New item added!";
+  list.appendChild(item);
+}
